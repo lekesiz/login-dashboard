@@ -6,8 +6,8 @@ import { Home, Users, Settings, BarChart3, FileText, Package } from 'lucide-reac
 
 const menuItems = [
   { href: '/dashboard', label: 'Ana Sayfa', icon: Home },
-  { href: '/dashboard/analytics', label: 'Analizler', icon: BarChart3 },
   { href: '/dashboard/users', label: 'Kullanıcılar', icon: Users },
+  { href: '/dashboard/analytics', label: 'Analizler', icon: BarChart3 },
   { href: '/dashboard/products', label: 'Ürünler', icon: Package },
   { href: '/dashboard/reports', label: 'Raporlar', icon: FileText },
   { href: '/dashboard/settings', label: 'Ayarlar', icon: Settings },
