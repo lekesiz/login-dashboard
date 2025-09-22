@@ -5,7 +5,11 @@ import { User, LogOut, Bell } from 'lucide-react'
 import { useState } from 'react'
 
 interface DashboardHeaderProps {
-  user: any
+  user: {
+    name?: string | null
+    email?: string | null
+    image?: string | null
+  } | undefined
 }
 
 export default function DashboardHeader({ user }: DashboardHeaderProps) {
