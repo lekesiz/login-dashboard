@@ -133,9 +133,29 @@ export async function POST(request: NextRequest) {
         },
       })
       
-      // TODO: Send invite email if sendInvite is true
+      // Send invite email if requested
       if (validatedData.sendInvite) {
-        // Email implementation will be added later
+        const { sendUserInvitationEmail } = await import('@/lib/email')
+        const { createInviteToken } = await import('@/lib/tokens')
+        
+        if (validatedData.password) {
+          // Send with temporary password
+          await sendUserInvitationEmail({
+            inviterName: session.user.name || session.user.email,
+            inviteeName: user.name,
+            inviteeEmail: user.email,
+            temporaryPassword: password,
+          })
+        } else {
+          // Send with invite token
+          const inviteToken = await createInviteToken(user.id)
+          await sendUserInvitationEmail({
+            inviterName: session.user.name || session.user.email,
+            inviteeName: user.name,
+            inviteeEmail: user.email,
+            inviteToken,
+          })
+        }
       }
       
       return successResponse({
