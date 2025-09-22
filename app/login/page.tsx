@@ -40,10 +40,16 @@ export default function LoginPage() {
       })
 
       if (result?.error) {
-        setError('Email veya şifre hatalı')
-      } else {
+        if (result.error === 'Configuration') {
+          setError('Sunucu yapılandırma hatası. Lütfen yönetici ile iletişime geçin.')
+        } else {
+          setError('Email veya şifre hatalı')
+        }
+      } else if (result?.ok) {
         router.push('/dashboard')
         router.refresh()
+      } else {
+        setError('Beklenmeyen bir hata oluştu')
       }
     } catch {
       setError('Giriş yapılırken bir hata oluştu')
