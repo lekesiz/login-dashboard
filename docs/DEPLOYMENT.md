@@ -47,7 +47,10 @@ Build sırasında ESLint hatası alırsanız:
 ```env
 AUTH_SECRET=your-secret-key-here
 AUTH_TRUST_HOST=true
+NEXTAUTH_URL=https://bilancompetence.netlify.app
 ```
+
+**NOT**: NEXTAUTH_URL'i kendi domain'inize göre güncelleyin!
 
 ### Opsiyonel (gelecek özellikler için)
 ```env
