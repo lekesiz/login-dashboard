@@ -72,3 +72,46 @@ export const roleApi = {
     return api.get('/roles')
   },
 }
+
+// Auth API functions
+export const authApi = {
+  getMe: () => {
+    return api.get('/auth/me')
+  },
+
+  updateMe: (data: { name?: string; avatar?: string }) => {
+    return api.patch('/auth/me', data)
+  },
+
+  changeMyPassword: (data: {
+    currentPassword: string
+    newPassword: string
+    confirmPassword: string
+  }) => {
+    return api.post('/auth/me/password', data)
+  },
+
+  getSessions: () => {
+    return api.get('/auth/sessions')
+  },
+
+  revokeSession: (sessionId: string) => {
+    return api.delete(`/auth/sessions/${sessionId}`)
+  },
+
+  forgotPassword: (email: string) => {
+    return api.post('/auth/forgot-password', { email })
+  },
+
+  resetPassword: (data: {
+    token: string
+    newPassword: string
+    confirmPassword: string
+  }) => {
+    return api.post('/auth/reset-password', data)
+  },
+
+  verifyEmail: (token: string) => {
+    return api.post('/auth/verify-email', { token })
+  },
+}
