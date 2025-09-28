@@ -1,0 +1,15 @@
+steps:
+  # Build step
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/migrate-temp:latest', '-f', 'Dockerfile.migrate', '.']
+
+  # Run migrations
+  - name: 'gcr.io/$PROJECT_ID/migrate-temp:latest'
+    env:
+      - 'DATABASE_URL=postgresql://modernapp:modernapp2025secure@127.0.0.1:5432/modernwebapp?host=/cloudsql/bilan-competence-449414:us-central1:bdc-db-prod'
+    args: ['npx', 'prisma', 'migrate', 'deploy']
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: 'projects/bilan-competence-449414/locations/us-central1/workerPools/cloud-build-pool'

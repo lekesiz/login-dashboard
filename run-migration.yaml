@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: modern-webapp-migration
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/cloudsql-instances: bilan-competence-449414:us-central1:bdc-db-prod
+    spec:
+      containers:
+      - name: migrate
+        image: gcr.io/bilan-competence-449414/modern-webapp:v7
+        command: ["npx", "prisma", "migrate", "deploy"]
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: modernapp-db-url-v2
+              key: latest
+      restartPolicy: Never
