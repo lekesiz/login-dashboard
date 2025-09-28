@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -39,8 +39,8 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @ignore
-  access_token      String? @ignore
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
@@ -88,7 +88,7 @@ model Activity {
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   type        ActivityType
   action      String
-  details     String?
+  details     Json?
   ipAddress   String?
   userAgent   String?
   createdAt   DateTime     @default(now())

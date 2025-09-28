@@ -104,7 +104,7 @@ export class ActivityService {
     if (filters.search) {
       where.OR = [
         { action: { contains: filters.search } },
-        { details: { contains: filters.search } },
+        // For PostgreSQL JSON search, we'll need to use raw query or ignore for now
       ]
     }
 

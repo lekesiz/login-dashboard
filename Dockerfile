@@ -50,12 +50,16 @@ COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/docker-entrypoint.sh ./
 RUN chmod +x ./docker-entrypoint.sh
 
+# Create writable directory for SQLite database
+RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data && chmod 755 /app/data
+
 USER nextjs
 
-# Cloud Run dynamically assigns the PORT
+# Cloud Run expects port 8080 by default
 EXPOSE 8080
 
 # Use PORT environment variable from Cloud Run
+ENV PORT=8080
 ENV HOSTNAME="0.0.0.0"
 
 # Use the entrypoint script to run migrations before starting the app
